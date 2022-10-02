@@ -1,4 +1,4 @@
-# FocusTimer - Versão 2.0
+# FocusTimer - Versão 2.0 - Desktop Web
 
 # 💻 Sobre o desafio
 
