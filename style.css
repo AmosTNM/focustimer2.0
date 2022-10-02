@@ -1,0 +1,116 @@
+/* ============ RESET ============ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* font-size scale */
+    font-size: 62.5%;
+
+    /* colors */
+    --bg-content: #FFFFFF;
+    --bg-card: #E1E1E6;
+    --bg-card-selected: #02799D;
+    --stop-decrement: #E5E5E5;
+}
+
+/* ============ BODY AND CONTENT ============ */
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    display: grid;
+    place-content: center;
+}
+
+.content {
+    width: 128.0rem;
+    height: 72rem;
+    background: var(--bg-content);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 19.2rem;
+}
+
+/* ============ TIMER ============ */
+.timer {
+    width: 32.1rem;
+    height: 21.3rem;
+}
+
+.time {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12.62rem;
+    display: flex;
+    align-items: center;
+    line-height: 14.8rem;
+    text-align: center;
+    text-transform: uppercase;
+
+    margin-bottom: 1.7rem;
+}
+
+.buttons {
+    width: 32.1rem;
+    height: 4.8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.stop-decrement {
+    fill: var(--stop-decrement);
+}
+
+/* ============ CARDS ============ */
+.cards {
+    width: 30.8rem;
+    height: 33.6rem;
+    display: grid;
+    gap: 3.2rem;
+    grid-template-areas: "A B" "C D";
+}
+
+.card-forest,
+.card-rain,
+.card-coffeeshop,
+.card-fireplace {
+    width: 13.8rem;
+    height: 15.2rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3.2rem;
+
+    border-radius: 2.4rem;
+    background-color: var(--bg-card);
+}
+
+.svg-forest {
+    margin-bottom: 10rem;
+}
+
+.selected {
+    fill:white;
+    background-color: var(--bg-card-selected);
+}
