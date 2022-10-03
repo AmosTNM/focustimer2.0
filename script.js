@@ -27,36 +27,72 @@ let numberMinutes = Number(displayMinutes.innerText)
 let numberSeconds = Number(displaySeconds.innerText)
 let countDown
 
+function disableForestCard() {
+    audioForest.pause()
+    cardForest.classList.remove('selected')
+    svgForest.classList.remove('selected')
+}
+function disableRainCard() {
+    audioRain.pause()
+    cardRain.classList.remove('selected')
+    svgRain.classList.remove('selected')
+}
+function disableCoffeeshopCard() {
+    audioCoffeeshop.pause()
+    cardCoffeeshop.classList.remove('selected')
+    svgCoffeeshop.classList.remove('selected')
+}
+function disableFireplaceCard() {
+    audioFireplace.pause()
+    cardFireplace.classList.remove('selected')
+    svgFireplace.classList.remove('selected')
+}
+function enableForestCard() {
+    audioForest.play()
+    audioForest.loop = true
+    cardForest.classList.add('selected')
+    svgForest.classList.add('selected')
+}
+function enableRainCard() {
+    audioRain.play()
+    audioRain.loop = true 
+    cardRain.classList.add('selected')
+    svgRain.classList.add('selected')    
+}
+function enableCoffeeshopCard() {
+    audioCoffeeshop.play()
+    audioCoffeeshop.loop = true
+    cardCoffeeshop.classList.add('selected')
+    svgCoffeeshop.classList.add('selected')
+}
+function enableFireplaceCard(){
+    audioFireplace.play()
+    audioFireplace.loop = true
+    cardFireplace.classList.add('selected')
+    svgFireplace.classList.add('selected')
+}
+
+function togglePlayPause() {
+    buttonPlay.classList.toggle('hide')
+    buttonPause.classList.toggle('hide')
+    svgDecrease.classList.remove('stop-decrement')
+}
+function turnStringDisplayIntoNumber() {
+    numberMinutes = Number(displayMinutes.innerText)
+    numberSeconds = Number(displaySeconds.innerText)
+}
+
 buttonPlay.addEventListener('click', () => {
-    buttonPlay.classList.add('hide')
-    buttonPause.classList.remove('hide')
+    togglePlayPause()
     countDown = setInterval(() => {
         if (numberMinutes == 00 && numberSeconds == 00) {
             audioAlertTimer.play()
+            togglePlayPause()
             clearInterval(countDown)
-
-            cardForest.classList.remove('selected')
-            svgForest.classList.remove('selected')
-            audioForest.pause()
-
-            cardRain.classList.remove('selected')
-            svgRain.classList.remove('selected')
-            audioRain.pause()
-
-            cardCoffeeshop.classList.remove('selected')
-            svgCoffeeshop.classList.remove('selected')
-            audioCoffeeshop.pause()
-
-            cardFireplace.classList.remove('selected')
-            svgFireplace.classList.remove('selected')
-            audioFireplace.pause()
-            
-            buttonPlay.classList.remove('hide')
-            buttonPause.classList.add('hide')
-            buttonIncrease.disabled = false
-            buttonDecrease.disabled = false
-            svgDecrease.classList.remove('stop-decrement')
-
+            disableForestCard()
+            disableRainCard()
+            disableCoffeeshopCard()
+            disableFireplaceCard()
             return
         } else if (numberSeconds == 00) {
             numberMinutes--
@@ -65,156 +101,81 @@ buttonPlay.addEventListener('click', () => {
         }
         numberSeconds--
         displaySeconds.textContent = String(numberSeconds).padStart(2, '0')
-        console.log(`${String(numberMinutes).padStart(2, '0')}:${String(numberSeconds).padStart(2, '0')}`)
         return
     }, 1000)
 })
 buttonPause.addEventListener('click', () => {
-    buttonPlay.classList.remove('hide')
-    buttonPause.classList.add('hide')
-    audioAlertTimer.pause()
+    togglePlayPause()
     clearTimeout(countDown)
 })
 buttonStop.addEventListener('click', () => {
     clearInterval(countDown)
+    
+    togglePlayPause()
+    
+    disableForestCard()
+    disableRainCard()
+    disableCoffeeshopCard()
+    disableFireplaceCard()
+
     displayMinutes.textContent = '05'
     displaySeconds.textContent = '00'
-    buttonPlay.classList.remove('hide')
-    buttonPause.classList.add('hide')
-    buttonIncrease.disabled = false
-    buttonDecrease.disabled = false
-    svgDecrease.classList.remove('stop-decrement')
-    
-    cardForest.classList.remove('selected')
-    svgForest.classList.remove('selected')
-    audioForest.pause()
 
-    cardRain.classList.remove('selected')
-    svgRain.classList.remove('selected')
-    audioRain.pause()
-
-    cardCoffeeshop.classList.remove('selected')
-    svgCoffeeshop.classList.remove('selected')
-    audioCoffeeshop.pause()
-
-    cardFireplace.classList.remove('selected')
-    svgFireplace.classList.remove('selected')
-    audioFireplace.pause()
-    numberMinutes = Number(displayMinutes.innerText)
-    numberSeconds = Number(displaySeconds.innerText)
-    console.log(displayMinutes.textContent + ':' + displaySeconds.textContent)
+    turnStringDisplayIntoNumber()
 })
 buttonIncrease.addEventListener('click', () => {
     displayMinutes.textContent = String(numberMinutes += 5).padStart(2, '0')
     numberMinutes = Number(displayMinutes.textContent)
     svgDecrease.classList.remove('stop-decrement')
-    console.log(`${numberMinutes} é ${typeof numberMinutes}`)
 })
 buttonDecrease.addEventListener('click', () => {
-    if (numberMinutes > 5) {
-        svgDecrease.classList.remove('stop-decrement')
+    if (numberMinutes >= 5) {
         displayMinutes.textContent = String(numberMinutes -= 5).padStart(2, '0') || "00"
         numberMinutes = Number(displayMinutes.textContent)
-        console.log(`${numberMinutes} é ${typeof numberMinutes}`)
-    } else if (numberMinutes <=5) {
+        svgDecrease.classList.remove('stop-decrement')
+    } else if (numberMinutes < 5) {
         svgDecrease.classList.add('stop-decrement')
     }
 })
 
 cardForest.addEventListener('click', () => {
     if (audioForest.paused == true) {
-        audioForest.play()
-        audioForest.loop = true
-        cardForest.classList.add('selected')
-        svgForest.classList.add('selected')
-
-        cardRain.classList.remove('selected')
-        svgRain.classList.remove('selected')
-        audioRain.pause()
-
-        cardCoffeeshop.classList.remove('selected')
-        svgCoffeeshop.classList.remove('selected')
-        audioCoffeeshop.pause()
-
-        cardFireplace.classList.remove('selected')
-        svgFireplace.classList.remove('selected')
-        audioFireplace.pause()
+        enableForestCard()
+        disableRainCard()
+        disableCoffeeshopCard()
+        disableFireplaceCard()
     } else {
-        cardForest.classList.remove('selected')
-        svgForest.classList.remove('selected')
-        audioForest.pause()
+        disableForestCard()
     }
 })
 cardRain.addEventListener('click', () => {
     if (audioRain.paused == true) {
-        cardForest.classList.remove('selected')
-        svgForest.classList.remove('selected')
-        audioForest.pause()
-        
-        cardRain.classList.add('selected')
-        svgRain.classList.add('selected')
-        audioRain.play()
-        audioRain.loop = true
-        
-        cardCoffeeshop.classList.remove('selected')
-        svgCoffeeshop.classList.remove('selected')
-        audioCoffeeshop.pause()
-        
-        cardFireplace.classList.remove('selected')
-        svgFireplace.classList.remove('selected')
-        audioFireplace.pause()
+        enableRainCard()
+        disableForestCard()
+        disableCoffeeshopCard()
+        disableFireplaceCard()
     } else {
-        cardRain.classList.remove('selected')
-        svgRain.classList.remove('selected')
-        audioRain.pause()      
+        disableRainCard()
     }
 })
 cardCoffeeshop.addEventListener('click', () => {
     if (audioCoffeeshop.paused == true) {
-        cardForest.classList.remove('selected')
-        svgForest.classList.remove('selected')
-        audioForest.pause()
-        
-        cardRain.classList.remove('selected')
-        svgRain.classList.remove('selected')
-        audioRain.pause()
-        
-        cardCoffeeshop.classList.add('selected')
-        svgCoffeeshop.classList.add('selected')
-        audioCoffeeshop.play()
-        audioCoffeeshop.loop = true
-   
-        cardFireplace.classList.remove('selected')
-        svgFireplace.classList.remove('selected')
-        audioFireplace.pause()
+        enableCoffeeshopCard()
+        disableForestCard()
+        disableRainCard()
+        disableFireplaceCard()
     } else {
-        cardCoffeeshop.classList.remove('selected')
-        svgCoffeeshop.classList.remove('selected')
-        audioCoffeeshop.pause()
+        disableCoffeeshopCard()
     }
 })
 cardFireplace.addEventListener('click', () => {
     if (audioFireplace.paused == true) {
-        cardForest.classList.remove('selected')
-        svgForest.classList.remove('selected')
-        audioForest.pause()
-        
-        cardRain.classList.remove('selected')
-        svgRain.classList.remove('selected')
-        audioRain.pause()
-        
-        cardCoffeeshop.classList.remove('selected')
-        svgCoffeeshop.classList.remove('selected')
-        audioCoffeeshop.pause()
-        
-        cardFireplace.classList.add('selected')
-        svgFireplace.classList.add('selected')
-        audioFireplace.play()
-        audioFireplace.loop = true
+        enableFireplaceCard()
+        disableForestCard()        
+        disableRainCard()
+        disableCoffeeshopCard()
     } else {
-        cardFireplace.classList.remove('selected')
-        svgFireplace.classList.remove('selected')
-        audioFireplace.pause()
+        disableFireplaceCard()
     }
 
 })
