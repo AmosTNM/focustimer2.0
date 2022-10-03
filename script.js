@@ -111,7 +111,8 @@ buttonPause.addEventListener('click', () => {
 buttonStop.addEventListener('click', () => {
     clearInterval(countDown)
     
-    togglePlayPause()
+    buttonPlay.classList.remove('hide')
+    buttonPause.classList.add('hide')
     
     disableForestCard()
     disableRainCard()
