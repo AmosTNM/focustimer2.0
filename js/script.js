@@ -1,3 +1,5 @@
+import { Cards } from './cards.js';
+
 let displayMinutes = document.querySelector('.minutes')
 let displaySeconds = document.querySelector('.seconds')
 let numberMinutes = Number(displayMinutes.innerText)
@@ -25,50 +27,12 @@ const audioCoffeeshop = new Audio('./assets/Cafeteria.wav')
 const audioFireplace = new Audio('./assets/Lareira.wav')
 const audioAlertTimer = new Audio("./assets/Alerta.mp3")
 
-function enableForestCard() {
-    audioForest.play()
-    audioForest.loop = true
-    cardForest.classList.add('selected')
-    svgForest.classList.add('selected')
-}
-function enableRainCard() {
-    audioRain.play()
-    audioRain.loop = true 
-    cardRain.classList.add('selected')
-    svgRain.classList.add('selected')    
-}
-function enableCoffeeshopCard() {
-    audioCoffeeshop.play()
-    audioCoffeeshop.loop = true
-    cardCoffeeshop.classList.add('selected')
-    svgCoffeeshop.classList.add('selected')
-}
-function enableFireplaceCard(){
-    audioFireplace.play()
-    audioFireplace.loop = true
-    cardFireplace.classList.add('selected')
-    svgFireplace.classList.add('selected')
-}
-function disableForestCard() {
-    audioForest.pause()
-    cardForest.classList.remove('selected')
-    svgForest.classList.remove('selected')
-}
-function disableRainCard() {
-    audioRain.pause()
-    cardRain.classList.remove('selected')
-    svgRain.classList.remove('selected')
-}
-function disableCoffeeshopCard() {
-    audioCoffeeshop.pause()
-    cardCoffeeshop.classList.remove('selected')
-    svgCoffeeshop.classList.remove('selected')
-}
-function disableFireplaceCard() {
-    audioFireplace.pause()
-    cardFireplace.classList.remove('selected')
-    svgFireplace.classList.remove('selected')
-}
+const cards = Cards({
+    cardForest, svgForest, audioForest,
+    cardRain, svgRain, audioRain,
+    cardCoffeeshop, svgCoffeeshop, audioCoffeeshop,
+    cardFireplace, svgFireplace, audioFireplace,
+})
 
 function togglePlayPause() {
     buttonPlay.classList.toggle('hide')
@@ -88,16 +52,16 @@ function reset() {
 buttonPlay.addEventListener('click', () => {
     togglePlayPause()
     countDown = setInterval(() => {
-        if (numberMinutes == 00 && numberSeconds == 00) {
+        if (numberMinutes == 0 && numberSeconds == 0) {
             audioAlertTimer.play()
             togglePlayPause()
             clearInterval(countDown)
-            disableForestCard()
-            disableRainCard()
-            disableCoffeeshopCard()
-            disableFireplaceCard()
+            cards.disableForest()
+            cards.disableRain()
+            cards.disableCoffeeshop()
+            cards.disableFireplace()
             return
-        } else if (numberSeconds == 00) {
+        } else if (numberSeconds == 0) {
             numberMinutes--
             numberSeconds = 60
             displayMinutes.textContent = String(numberMinutes).padStart(2, '0')
@@ -114,11 +78,11 @@ buttonPause.addEventListener('click', () => {
 buttonStop.addEventListener('click', () => {
     clearInterval(countDown)
     reset()
-    disableForestCard()
-    disableRainCard()
-    disableCoffeeshopCard()
-    disableFireplaceCard()
     turnStringDisplayIntoNumber()
+    cards.disableForest()
+    cards.disableRain()
+    cards.disableCoffeeshop()
+    cards.disableFireplace()
 })
 buttonIncrease.addEventListener('click', () => {
     displayMinutes.textContent = String(numberMinutes += 5).padStart(2, '0')
@@ -135,42 +99,41 @@ buttonDecrease.addEventListener('click', () => {
 
 cardForest.addEventListener('click', () => {
     if (audioForest.paused == true) {
-        enableForestCard()
-        disableRainCard()
-        disableCoffeeshopCard()
-        disableFireplaceCard()
+        cards.enableForest()
+        cards.disableRain()
+        cards.disableCoffeeshop()
+        cards.disableFireplace()
     } else {
-        disableForestCard()
+        cards.disableForest()
     }
 })
 cardRain.addEventListener('click', () => {
     if (audioRain.paused == true) {
-        enableRainCard()
-        disableForestCard()
-        disableCoffeeshopCard()
-        disableFireplaceCard()
+        cards.enableRain()
+        cards.disableForest()
+        cards.disableCoffeeshop()
+        cards.disableFireplace()
     } else {
-        disableRainCard()
+        cards.disableRain()
     }
 })
 cardCoffeeshop.addEventListener('click', () => {
     if (audioCoffeeshop.paused == true) {
-        enableCoffeeshopCard()
-        disableForestCard()
-        disableRainCard()
-        disableFireplaceCard()
+        cards.enableCoffeeshop()
+        cards.disableForest()
+        cards.disableRain()
+        cards.disableFireplace()
     } else {
-        disableCoffeeshopCard()
+        cards.disableCoffeeshop()
     }
 })
 cardFireplace.addEventListener('click', () => {
     if (audioFireplace.paused == true) {
-        enableFireplaceCard()
-        disableForestCard()        
-        disableRainCard()
-        disableCoffeeshopCard()
+        cards.enableFireplace()
+        cards.disableForest()        
+        cards.disableRain()
+        cards.disableCoffeeshop()
     } else {
-        disableFireplaceCard()
+        cards.disableFireplace()
     }
-
 })
