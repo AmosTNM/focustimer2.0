@@ -1,6 +1,6 @@
 # FocusTimer - Versão 2.0 - Desktop Web
 
-# 💻 Sobre o desafio
+# 💻 Sobre o desenvolvimento
 
 A ideia agora é criar o **FocusTimer 2.0!**
 
