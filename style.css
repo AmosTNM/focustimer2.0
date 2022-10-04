@@ -36,8 +36,12 @@ body {
 
 /* ============ TIMER ============ */
 .timer {
-    width: 32.1rem;
+    width: 40rem;
     height: 21.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .time {
@@ -74,10 +78,6 @@ button {
 
 .hide {
     display: none;
-}
-
-.stop-decrement {
-    fill: var(--stop-decrement);
 }
 
 /* ============ CARDS ============ */

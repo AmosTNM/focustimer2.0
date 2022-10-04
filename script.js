@@ -1,10 +1,14 @@
+let displayMinutes = document.querySelector('.minutes')
+let displaySeconds = document.querySelector('.seconds')
+let numberMinutes = Number(displayMinutes.innerText)
+let numberSeconds = Number(displaySeconds.innerText)
+let countDown
+
 let buttonPlay = document.querySelector('.play')
 let buttonPause = document.querySelector('.pause')
 let buttonStop = document.querySelector('.stop')
 let buttonIncrease = document.querySelector('.increase')
 let buttonDecrease = document.querySelector('.decrease')
-let svgIncrease = document.querySelector('.svg-increase')
-let svgDecrease = document.querySelector('.svg-decrease')
 
 let cardForest = document.querySelector('.card-forest')
 let svgForest = document.querySelector('.svg-forest')
@@ -21,32 +25,6 @@ const audioCoffeeshop = new Audio('./assets/Cafeteria.wav')
 const audioFireplace = new Audio('./assets/Lareira.wav')
 const audioAlertTimer = new Audio("./assets/Alerta.mp3")
 
-let displayMinutes = document.querySelector('.minutes')
-let displaySeconds = document.querySelector('.seconds')
-let numberMinutes = Number(displayMinutes.innerText)
-let numberSeconds = Number(displaySeconds.innerText)
-let countDown
-
-function disableForestCard() {
-    audioForest.pause()
-    cardForest.classList.remove('selected')
-    svgForest.classList.remove('selected')
-}
-function disableRainCard() {
-    audioRain.pause()
-    cardRain.classList.remove('selected')
-    svgRain.classList.remove('selected')
-}
-function disableCoffeeshopCard() {
-    audioCoffeeshop.pause()
-    cardCoffeeshop.classList.remove('selected')
-    svgCoffeeshop.classList.remove('selected')
-}
-function disableFireplaceCard() {
-    audioFireplace.pause()
-    cardFireplace.classList.remove('selected')
-    svgFireplace.classList.remove('selected')
-}
 function enableForestCard() {
     audioForest.play()
     audioForest.loop = true
@@ -71,15 +49,40 @@ function enableFireplaceCard(){
     cardFireplace.classList.add('selected')
     svgFireplace.classList.add('selected')
 }
+function disableForestCard() {
+    audioForest.pause()
+    cardForest.classList.remove('selected')
+    svgForest.classList.remove('selected')
+}
+function disableRainCard() {
+    audioRain.pause()
+    cardRain.classList.remove('selected')
+    svgRain.classList.remove('selected')
+}
+function disableCoffeeshopCard() {
+    audioCoffeeshop.pause()
+    cardCoffeeshop.classList.remove('selected')
+    svgCoffeeshop.classList.remove('selected')
+}
+function disableFireplaceCard() {
+    audioFireplace.pause()
+    cardFireplace.classList.remove('selected')
+    svgFireplace.classList.remove('selected')
+}
 
 function togglePlayPause() {
     buttonPlay.classList.toggle('hide')
     buttonPause.classList.toggle('hide')
-    svgDecrease.classList.remove('stop-decrement')
 }
 function turnStringDisplayIntoNumber() {
     numberMinutes = Number(displayMinutes.innerText)
     numberSeconds = Number(displaySeconds.innerText)
+}
+function reset() {
+    buttonPlay.classList.remove('hide')
+    buttonPause.classList.add('hide')
+    displayMinutes.textContent = '00'
+    displaySeconds.textContent = '00'
 }
 
 buttonPlay.addEventListener('click', () => {
@@ -110,32 +113,23 @@ buttonPause.addEventListener('click', () => {
 })
 buttonStop.addEventListener('click', () => {
     clearInterval(countDown)
-    
-    buttonPlay.classList.remove('hide')
-    buttonPause.classList.add('hide')
-    
+    reset()
     disableForestCard()
     disableRainCard()
     disableCoffeeshopCard()
     disableFireplaceCard()
-
-    displayMinutes.textContent = '05'
-    displaySeconds.textContent = '00'
-
     turnStringDisplayIntoNumber()
 })
 buttonIncrease.addEventListener('click', () => {
     displayMinutes.textContent = String(numberMinutes += 5).padStart(2, '0')
     numberMinutes = Number(displayMinutes.textContent)
-    svgDecrease.classList.remove('stop-decrement')
 })
 buttonDecrease.addEventListener('click', () => {
     if (numberMinutes >= 5) {
         displayMinutes.textContent = String(numberMinutes -= 5).padStart(2, '0') || "00"
         numberMinutes = Number(displayMinutes.textContent)
-        svgDecrease.classList.remove('stop-decrement')
     } else if (numberMinutes < 5) {
-        svgDecrease.classList.add('stop-decrement')
+        return
     }
 })
 
