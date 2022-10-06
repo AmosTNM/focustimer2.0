@@ -1,4 +1,4 @@
-export function Cards({
+function Cards({
     cardForest, svgForest, audioForest,
     cardRain, svgRain, audioRain,
     cardCoffeeshop, svgCoffeeshop, audioCoffeeshop,
@@ -58,4 +58,4 @@ export function Cards({
         disableCoffeeshop,
         disableFireplace
     }
-} { Cards }
+} export { Cards }
