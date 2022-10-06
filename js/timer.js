@@ -34,19 +34,15 @@ function Timer({
         displaySeconds.textContent = '00'
         numberMinutes = Number(displayMinutes.textContent)
         numberSeconds = Number(displaySeconds.textContent)
-        console.log(numberMinutes +':'+ numberSeconds)
-
     }
     function increase() {
         displayMinutes.textContent = String(numberMinutes += 5).padStart(2, '0') || "00"
         numberMinutes = Number(displayMinutes.textContent)
-        console.log(numberMinutes +':'+ numberSeconds)
     }
     function decrease() {
         if (numberMinutes >= 5) {
             displayMinutes.textContent = String(numberMinutes -= 5).padStart(2, '0') || "00"
             numberMinutes = Number(displayMinutes.textContent)
-            console.log(numberMinutes +':'+ numberSeconds)
         } else if (numberMinutes < 5) {
             return
         }
