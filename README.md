@@ -20,7 +20,7 @@ Aqui está o [**link**](https://www.figma.com/file/dpNtIPSsOoztjP74zItdwi/Stage-
 
 		➖: diminui em 5 minutos o tempo do timer.
 
-		**(00:00)** finalização do tempo emitirá um alerta sonoro 🔊 por 3 segundos.
+		(00:00): finalização do tempo emitirá um alerta sonoro 🔊 por 3 segundos.
 
 
 
